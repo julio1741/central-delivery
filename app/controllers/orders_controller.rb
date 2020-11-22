@@ -4,7 +4,8 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    current_organization_id = current_account.organization_id
+    @orders = Order.orders_by_organization_id(current_organization_id)
   end
 
   # GET /orders/1
@@ -25,7 +26,7 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-
+    @order.organization_id = current_account.organization_id
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }

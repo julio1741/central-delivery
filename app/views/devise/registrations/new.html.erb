@@ -19,6 +19,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :organization %><br />
+    <%= f.select :organization_id, Organization.all.map{|o| [o.name, o.id]}, {}, {} %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
